@@ -1,0 +1,273 @@
+{% extends "base.html" %}
+
+{% block title %}
+Players
+{% endblock %}
+
+{% block content %}
+
+<div class="text-center mb-5">
+
+    <h1 class="fw-bold">
+        🏏 Cricket Legends
+    </h1>
+
+    <p class="text-muted">
+        Explore biographies, statistics and achievements
+        of the world's greatest cricketers.
+    </p>
+
+</div>
+<form method="GET" class="mb-5">
+
+    <div class="row">
+
+        <div class="col-md-5">
+
+            <input
+                type="text"
+                name="search"
+                class="form-control"
+                placeholder="Search Players..."
+                value="{{ search }}">
+
+        </div>
+
+        <div class="col-md-4">
+
+            <select
+                name="country"
+                class="form-select">
+
+                <option value="">
+                    All Countries
+                </option>
+
+                {% for country in countries %}
+
+                <option
+                    value="{{ country }}"
+                    {% if country == selected_country %}
+                    selected
+                    {% endif %}>
+
+                    {{ country }}
+
+                </option>
+
+                {% endfor %}
+
+            </select>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <button
+                class="btn btn-warning w-100">
+
+                Search / Filter
+
+            </button>
+
+        </div>
+
+    </div>
+
+</form>
+
+<div class="row mb-5">
+
+    <div class="col-md-3">
+
+        <div class="card dashboard-card">
+
+            <div class="card-body text-center">
+
+                <h5>👥 Players</h5>
+
+                <h2>{{ total_players }}</h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="card dashboard-card">
+
+            <div class="card-body text-center">
+
+                <h5>🌍 Countries</h5>
+
+                <h2>{{ total_countries }}</h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="card dashboard-card">
+
+            <div class="card-body text-center">
+
+                <h5>🏏 Runs</h5>
+
+                <h2>{{ total_runs }}</h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="card dashboard-card">
+
+            <div class="card-body text-center">
+
+                <h5>🎯 Wickets</h5>
+
+                <h2>{{ total_wickets }}</h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="row">
+
+    {% for player in page_obj %}
+
+    <div class="col-lg-4 col-md-6 mb-4">
+
+        <div class="card player-card h-100 shadow-sm">
+
+            <img src="{{ player.image.url }}"
+                 class="card-img-top player-image"
+                 alt="{{ player.name }}">
+
+            <div class="card-body">
+
+                <h4 class="card-title text-center fw-bold">
+                    {{ player.name }}
+                </h4>
+
+                <p class="text-center">
+
+                    <span class="badge bg-primary">
+                        {{ player.country }}
+                    </span>
+
+                    <span class="badge bg-success">
+                        {{ player.role }}
+                    </span>
+
+                </p>
+
+                <hr>
+
+                <p>
+                    🏏 <strong>Matches:</strong>
+                    {{ player.matches }}
+                </p>
+
+                <p>
+                    🏃 <strong>Runs:</strong>
+                    {{ player.runs }}
+                </p>
+
+                <p>
+                    🎯 <strong>Wickets:</strong>
+                    {{ player.wickets }}
+                </p>
+
+            </div>
+
+            <div class="card-footer bg-white border-0">
+
+                <a href="{% url 'player_detail' player.id %}"
+                   class="btn btn-warning w-100">
+
+                    View Details
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% empty %}
+
+    <div class="col-12 text-center">
+
+        <h4>No Players Found.</h4>
+
+    </div>
+
+    {% endfor %}
+    <nav class="mt-5">
+
+    <ul class="pagination justify-content-center">
+
+        {% if page_obj.has_previous %}
+
+        <li class="page-item">
+
+            <a class="page-link"
+               href="?page={{ page_obj.previous_page_number }}{% if search %}&search={{ search }}{% endif %}{% if selected_country %}&country={{ selected_country }}{% endif %}">
+
+                Previous
+
+            </a>
+
+        </li>
+
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+
+        <li class="page-item {% if page_obj.number == num %}active{% endif %}">
+
+            <a class="page-link"
+               href="?page={{ num }}{% if search %}&search={{ search }}{% endif %}{% if selected_country %}&country={{ selected_country }}{% endif %}">
+                {{ num }}
+
+            </a>
+
+        </li>
+
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+
+        <li class="page-item">
+
+            <a class="page-link"
+               href="?page={{ page_obj.next_page_number }}{% if search %}&search={{ search }}{% endif %}{% if selected_country %}&country={{ selected_country }}{% endif %}">
+                Next
+
+            </a>
+
+        </li>
+
+        {% endif %}
+
+    </ul>
+
+</nav>
+
+</div>
+
+{% endblock %}

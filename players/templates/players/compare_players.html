@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+
+{% block title %}
+Compare Players
+{% endblock %}
+
+{% block content %}
+
+<h2 class="text-center fw-bold mb-5">
+
+    🆚 Compare Players
+
+</h2>
+
+<form method="GET">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-4">
+
+            <select
+                name="player1"
+                class="form-select">
+
+                <option>
+
+                    Select Player 1
+
+                </option>
+
+                {% for player in players %}
+
+                <option
+                    value="{{ player.id }}">
+
+                    {{ player.name }}
+
+                </option>
+
+                {% endfor %}
+
+            </select>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <select
+                name="player2"
+                class="form-select">
+
+                <option>
+
+                    Select Player 2
+
+                </option>
+
+                {% for player in players %}
+
+                <option
+                    value="{{ player.id }}">
+
+                    {{ player.name }}
+
+                </option>
+
+                {% endfor %}
+
+            </select>
+
+        </div>
+
+        <div class="col-md-2">
+
+            <button
+                class="btn btn-warning w-100">
+
+                Compare
+
+            </button>
+
+        </div>
+
+    </div>
+
+</form>
+
+{% if player1 and player2 %}
+
+<div class="card shadow-lg mt-5">
+
+    <div class="card-body">
+
+        <div class="table-responsive">
+
+            <table class="table table-bordered text-center align-middle">
+
+            <thead>
+
+                <tr>
+
+                    <th>Statistic</th>
+
+                    <th>{{ player1.name }}</th>
+
+                    <th>{{ player2.name }}</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+
+                    <th>Image</th>
+
+                    <td>
+
+                        <img
+                            src="{{ player1.image.url }}"
+                            width="120">
+
+                    </td>
+
+                    <td>
+
+                        <img
+                            src="{{ player2.image.url }}"
+                            width="120">
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <th>Country</th>
+
+                    <td>{{ player1.country }}</td>
+
+                    <td>{{ player2.country }}</td>
+
+                </tr>
+
+                <tr>
+
+                    <th>Role</th>
+
+                    <td>{{ player1.role }}</td>
+
+                    <td>{{ player2.role }}</td>
+
+                </tr>
+
+                <tr>
+
+                    <th>Matches</th>
+
+                    <td>{{ player1.matches }}</td>
+
+                    <td>{{ player2.matches }}</td>
+
+                </tr>
+
+                <tr>
+
+                    <th>Runs</th>
+
+                    <td>{{ player1.runs }}</td>
+
+                    <td>{{ player2.runs }}</td>
+
+                </tr>
+
+                <tr>
+
+                    <th>Wickets</th>
+
+                    <td>{{ player1.wickets }}</td>
+
+                    <td>{{ player2.wickets }}</td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+        </div>
+
+    </div>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,469 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+
+<div class="hero-banner">
+
+    <div class="hero-overlay">
+
+        <div class="container text-center">
+
+            <h1 class="display-2 fw-bold text-warning">
+
+                🏏 CricPedia
+
+            </h1>
+
+            <h2 class="text-white mt-4">
+
+                Your Ultimate Cricket Encyclopedia
+
+            </h2>
+
+            <p class="lead text-light mt-4">
+
+                Discover player biographies, career statistics,
+                records and achievements of cricket legends
+                from around the world.
+
+            </p>
+
+            <div class="mt-5">
+
+                <a href="{% url 'player_list' %}"
+                   class="btn btn-warning btn-lg px-4">
+
+                    Explore Players
+
+                </a>
+
+                <a href="#"
+                   class="btn btn-outline-light btn-lg ms-3 px-4">
+
+                    Learn More
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+    
+<!-- ==========================
+     Featured Players
+========================== -->
+
+<div class="mt-5">
+
+    <h2 class="text-center fw-bold mb-4">
+
+        ⭐ Featured Players
+
+    </h2>
+
+    <div class="row">
+
+        {% for player in featured_players %}
+
+        <div class="col-lg-4 col-md-6 mb-4">
+
+            <div class="card player-card h-100">
+
+                <img
+                    src="{{ player.image.url }}"
+                    class="card-img-top player-image"
+                    alt="{{ player.name }}">
+
+                <div class="card-body text-center">
+
+                    <h4 class="fw-bold">
+
+                        {{ player.name }}
+
+                    </h4>
+
+                    <p>
+
+                        <span class="badge bg-primary">
+
+                            {{ player.country }}
+
+                        </span>
+
+                    </p>
+
+                    <a
+                        href="{% url 'player_detail' player.id %}"
+                        class="btn btn-warning">
+
+                        View Profile
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="col-12 text-center">
+
+            <p>
+
+                No featured players added yet.
+
+            </p>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+<!-- ==========================
+     CricPedia Statistics
+========================== -->
+
+<div class="mt-5">
+
+    <h2 class="text-center fw-bold mb-4">
+
+        📊 CricPedia Statistics
+
+    </h2>
+
+    <div class="row">
+
+        <div class="col-md-3 mb-3">
+
+            <div class="card dashboard-card">
+
+                <div class="card-body text-center">
+
+                    <h5>👥 Players</h5>
+
+                    <h2>{{ total_players }}</h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3 mb-3">
+
+            <div class="card dashboard-card">
+
+                <div class="card-body text-center">
+
+                    <h5>🌍 Countries</h5>
+
+                    <h2>{{ total_countries }}</h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3 mb-3">
+
+            <div class="card dashboard-card">
+
+                <div class="card-body text-center">
+
+                    <h5>🏏 Runs</h5>
+
+                    <h2>{{ total_runs }}</h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3 mb-3">
+
+            <div class="card dashboard-card">
+
+                <div class="card-body text-center">
+
+                    <h5>🎯 Wickets</h5>
+
+                    <h2>{{ total_wickets }}</h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================
+     Latest Players
+========================== -->
+
+<div class="mt-5">
+
+    <h2 class="text-center fw-bold mb-4">
+
+        🆕 Latest Players
+
+    </h2>
+
+    <div class="row">
+
+        {% for player in latest_players %}
+
+        <div class="col-lg-4 col-md-6 mb-4">
+
+            <div class="card player-card h-100">
+
+                <img
+                    src="{{ player.image.url }}"
+                    class="card-img-top player-image"
+                    alt="{{ player.name }}">
+
+                <div class="card-body text-center">
+
+                    <h4>
+
+                        {{ player.name }}
+
+                    </h4>
+
+                    <p>
+
+                        <span class="badge bg-primary">
+
+                            {{ player.country }}
+
+                        </span>
+
+                    </p>
+
+                    <a
+                        href="{% url 'player_detail' player.id %}"
+                        class="btn btn-warning">
+
+                        View Profile
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="col-12 text-center">
+
+            <p>
+
+                No players available.
+
+            </p>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+<!-- ==========================
+     Top Run Scorers
+========================== -->
+
+<div class="mt-5">
+
+    <h2 class="text-center fw-bold mb-4">
+
+        🏆 Top Run Scorers
+
+    </h2>
+
+    <div class="card shadow-lg">
+
+    <div class="card-body">
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle mb-0">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Rank</th>
+
+                        <th>Player</th>
+
+                        <th>Country</th>
+
+                        <th>Runs</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for player in top_run_scorers %}
+
+                    <tr>
+
+                        <td>
+
+                            {{ forloop.counter }}
+
+                        </td>
+
+                        <td>
+
+                            <a href="{% url 'player_detail' player.id %}"
+                               class="text-decoration-none fw-bold">
+
+                                {{ player.name }}
+
+                            </a>
+
+                        </td>
+
+                        <td>
+
+                            {{ player.country }}
+
+                        </td>
+
+                        <td>
+
+                            <strong>
+
+                                {{ player.runs }}
+
+                            </strong>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ==========================
+     Top Wicket Takers
+========================== -->
+
+<div class="mt-5">
+
+    <h2 class="text-center fw-bold mb-4">
+
+        🎯 Top Wicket Takers
+
+    </h2>
+
+    <div class="card shadow-lg">
+
+        <div class="card-body">
+            <div class="table-responsive">
+
+            <table class="table table-hover align-middle mb-0">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Rank</th>
+                        <th>Player</th>
+                        <th>Country</th>
+                        <th>Wickets</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for player in top_wicket_takers %}
+
+                    <tr>
+
+                        <td>
+
+                            {{ forloop.counter }}
+
+                        </td>
+
+                        <td>
+
+                            <a href="{% url 'player_detail' player.id %}"
+                               class="text-decoration-none fw-bold">
+
+                                {{ player.name }}
+
+                            </a>
+
+                        </td>
+
+                        <td>
+
+                            {{ player.country }}
+
+                        </td>
+
+                        <td>
+
+                            <strong>
+
+                                {{ player.wickets }}
+
+                            </strong>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+{% endblock %}

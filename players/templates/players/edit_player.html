@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}
+Edit Player
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h3>Edit Player</h3>
+
+    <form method="POST"
+          enctype="multipart/form-data">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button class="btn btn-warning">
+
+            Update Player
+
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}

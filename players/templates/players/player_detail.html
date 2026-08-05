@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ player.name }}
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+
+    <div class="col-md-4">
+
+        <img src="{{ player.image.url }}"
+             class="img-fluid rounded shadow">
+
+    </div>
+
+    <div class="col-md-8">
+
+        <h2>{{ player.name }}</h2>
+
+        <hr>
+
+        <p><strong>Country:</strong> {{ player.country }}</p>
+
+        <p><strong>Role:</strong> {{ player.role }}</p>
+
+        <p><strong>Batting Style:</strong> {{ player.batting_style }}</p>
+
+        <p><strong>Bowling Style:</strong> {{ player.bowling_style }}</p>
+
+        <p><strong>Matches:</strong> {{ player.matches }}</p>
+
+        <p><strong>Runs:</strong> {{ player.runs }}</p>
+
+        <p><strong>Wickets:</strong> {{ player.wickets }}</p>
+
+        <hr>
+
+        <h4>Biography</h4>
+
+        <p>{{ player.biography }}</p>
+
+            {% if user.is_authenticated %}
+
+            <a href="{% url 'edit_player' player.id %}"
+            class="btn btn-warning">
+
+                Edit
+
+            </a>
+
+            {% if user.is_staff %}
+                <a href="{% url 'delete_player' player.id %}"
+                class="btn btn-danger">
+                    Delete Player
+                </a>
+            {% endif %}
+
+            {% endif %}
+
+            {% if user.is_authenticated %}
+
+                {% if is_favorite %}
+
+                    <a href="{% url 'remove_favorite' player.id %}"
+                    class="btn btn-success">
+
+                        ✅ Added to Favorites
+
+                    </a>
+
+                {% else %}
+
+                    <a href="{% url 'add_favorite' player.id %}"
+                    class="btn btn-danger">
+
+                        ❤️ Add to Favorites
+
+                    </a>
+
+                {% endif %}
+
+            {% endif %}
+
+            <a href="{% url 'player_list' %}"
+            class="btn btn-secondary">
+
+                Back
+
+            </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

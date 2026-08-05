@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}
+My Favorites
+{% endblock %}
+
+{% block content %}
+
+<h2 class="text-center fw-bold mb-5">
+
+    ❤️ My Favorite Players
+
+</h2>
+
+<div class="row">
+
+    {% for favorite in favorites %}
+
+    <div class="col-lg-4 col-md-6 mb-4">
+
+        <div class="card player-card h-100">
+
+            <img
+                src="{{ favorite.player.image.url }}"
+                class="card-img-top player-image"
+                alt="{{ favorite.player.name }}">
+
+            <div class="card-body text-center">
+
+                <h4>
+
+                    {{ favorite.player.name }}
+
+                </h4>
+
+                <p>
+
+                    <span class="badge bg-primary">
+
+                        {{ favorite.player.country }}
+
+                    </span>
+
+                    <span class="badge bg-success">
+
+                        {{ favorite.player.role }}
+
+                    </span>
+
+                </p>
+
+               <div class="d-flex justify-content-center gap-2">
+
+                    <a href="{% url 'player_detail' favorite.player.id %}"
+                    class="btn btn-warning">
+
+                        View Profile
+
+                    </a>
+
+                    <a href="{% url 'remove_favorite' favorite.player.id %}"
+                    class="btn btn-danger">
+
+                        ❌ Remove
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% empty %}
+
+    <div class="col-12 text-center">
+
+        <h4>
+
+            You haven't added any favorite players yet.
+
+        </h4>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}
