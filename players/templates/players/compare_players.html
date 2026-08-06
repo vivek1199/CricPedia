@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}
 Compare Players
@@ -118,16 +119,17 @@ Compare Players
                     <td>
 
                         <img
-                            src="{{ player1.image.url }}"
-                            width="120">
-
+                            src="{% static 'images/players/' %}{{ player1.image.name|cut:'players/' }}"
+                            width="120"
+                            alt="{{ player1.name }}">
                     </td>
 
                     <td>
 
                         <img
-                            src="{{ player2.image.url }}"
-                            width="120">
+                            src="{% static 'images/players/' %}{{ player2.image.name|cut:'players/' }}"
+                            width="120"
+                            alt="{{ player2.name }}">
 
                     </td>
 

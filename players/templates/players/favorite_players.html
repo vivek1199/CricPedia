@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}
 My Favorites
@@ -21,7 +22,7 @@ My Favorites
         <div class="card player-card h-100">
 
             <img
-                src="{{ favorite.player.image.url }}"
+                src="{% static 'images/players/' %}{{ favorite.player.image.name|cut:'players/' }}"
                 class="card-img-top player-image"
                 alt="{{ favorite.player.name }}">
 
