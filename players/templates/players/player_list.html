@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}
 Players
@@ -152,9 +153,9 @@ Players
 
         <div class="card player-card h-100 shadow-sm">
 
-            <img src="{{ player.image.url }}"
-                 class="card-img-top player-image"
-                 alt="{{ player.name }}">
+            <img src="{% static 'images/players/' %}{{ player.image.name|cut:'players/' }}"
+            class="card-img-top player-image"
+            alt="{{ player.name }}">
 
             <div class="card-body">
 
